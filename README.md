@@ -27,7 +27,7 @@ server.listen(8080, function() {
 ```
 
 You should replace `http://127.0.0.1` with your connection string to etcd.
-Alternatively you can pass an instance of `etcd-registry`.
+Alternatively you can pass an instance of [etcd-registry](https://github.com/mafintosh/etcd-registry).
 
 When the process receives `SIGTERM` or `SIGINT` it will unregister the service from the registry
 before exiting the process.
