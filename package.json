@@ -7,6 +7,6 @@
     "etcd-registry-join": "bin.js"
   },
   "dependencies": {
-    "etcd-registry": "~0.5.3"
+    "etcd-registry": "~0.6.0"
   }
 }

@@ -20,11 +20,14 @@ var server = http.createServer(function(request, response) {
 });
 
 server.listen(8080, function() {
-	join(etcdConnectionString, 'my-service', server, function(err, service) {
+	join('http://127.0.0.1', 'my-service', server, function(err, service) {
 		console.log('service joined:', service);
 	});
 });
 ```
+
+You should replace `http://127.0.0.1` with your connection string to etcd.
+Alternatively you can pass an instance of `etcd-registry`.
 
 When the process receives `SIGTERM` or `SIGINT` it will unregister the service from the registry
 before exiting the process.
@@ -34,7 +37,7 @@ before exiting the process.
 You can also use the command line tool
 
 ```
-etcd-registry-join etcd-connection-string my-service my-app.js
+etcd-registry-join http://127.0.0.1 my-service my-app.js
 ```
 
 Where my app looks like
