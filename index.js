@@ -35,8 +35,6 @@ module.exports = function(services, names, server, cb) {
 		setTimeout(function() {
 			services.leave(function(err) {
 				if (err) return exit();
-				if (!server) return exit(10000);
-				server.unref();
 				exit(10000);
 			});
 		}, 2000);
