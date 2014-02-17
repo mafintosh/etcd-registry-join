@@ -32,12 +32,14 @@ module.exports = function(services, names, server, cb) {
 	};
 
 	process.on('SIGTERM', function() {
-		services.leave(function(err) {
-			if (err) return exit();
-			if (!server) return exit(10000);
-			server.unref();
-			exit(10000);
-		});
+		setTimeout(function() {
+			services.leave(function(err) {
+				if (err) return exit();
+				if (!server) return exit(10000);
+				server.unref();
+				exit(10000);
+			});
+		}, 2000);
 	});
 
 	process.on('SIGINT', function() {
