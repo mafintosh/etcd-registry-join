@@ -1,14 +1,14 @@
 var registry = require('etcd-registry');
 var noop = function() {};
 
-module.exports = function(services, names, server, cb) {
+module.exports = function(services, opts, server, cb) {
 	if (!cb) cb = noop;
+	if (typeof opts === 'string' || Array.isArray(opts)) opts = {name:opts};
 	if (typeof services === 'string') services = registry(services);
 
 	var port = typeof server === 'number' ? server : server.address().port;
 	var server = typeof server === 'number' ? null : server;
-
-	names = [].concat(names);
+	var names = [].concat(opts.names);
 
 	var loop = function(err, service) {
 		if (err) return cb(err);
@@ -35,9 +35,9 @@ module.exports = function(services, names, server, cb) {
 		setTimeout(function() {
 			services.leave(function(err) {
 				if (err) return exit();
-				exit(10000);
+				exit(opts.slack || 10000);
 			});
-		}, 2000);
+		}, opts.wait || 2000);
 	});
 
 	process.on('SIGINT', function() {
