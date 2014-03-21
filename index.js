@@ -8,7 +8,7 @@ module.exports = function(services, opts, server, cb) {
 
 	var port = typeof server === 'number' ? server : server.address().port;
 	var server = typeof server === 'number' ? null : server;
-	var names = [].concat(opts.names);
+	var names = [].concat(opts.name || opts.names);
 
 	var loop = function(err, service) {
 		if (err) return cb(err);
