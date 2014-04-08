@@ -25,6 +25,9 @@ module.exports = function(services, opts, server, cb) {
 		pexit();
 	};
 
+	if (opts.slack === undefined) opts.slack = 10000;
+	if (opts.wait === undefined) opts.wait = 2000;
+
 	process.exit = function(code) { // a bit hackish but we want to intercept process exit and do async stuff
 		services.leave(function() {
 			pexit(code);
@@ -32,12 +35,13 @@ module.exports = function(services, opts, server, cb) {
 	};
 
 	process.on('SIGTERM', function() {
+		if (!opts.wait && !opts.slack) return process.exit();
 		setTimeout(function() {
 			services.leave(function(err) {
 				if (err) return exit();
-				exit(opts.slack || 10000);
+				exit(opts.slack);
 			});
-		}, opts.wait || 2000);
+		}, opts.wait);
 	});
 
 	process.on('SIGINT', function() {
