@@ -1,6 +1,6 @@
 {
   "name": "etcd-registry-join",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Add a service to etcd-registry and remove it when your service process exits",
   "repository": "git://github.com/mafintosh/etcd-registry-join.git",
   "bin": {
